@@ -1,1 +1,28 @@
-<router-outlet></router-outlet>
+<div class="wrapper">
+    <!-- Navbar -->
+    <app-admin-header></app-admin-header>
+    <!-- /.navbar -->
+  
+    <!-- Main Sidebar Container -->
+    <app-admin-sidebar></app-admin-sidebar>
+  
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <app-admin-broadcast></app-admin-broadcast>
+      <!-- Main content -->
+      <section class="content">
+
+        <router-outlet></router-outlet>
+  
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+  
+    <app-admin-footer></app-admin-footer>
+  
+    <!-- Control Sidebar -->
+    
+    <!-- /.control-sidebar -->
+  </div>
