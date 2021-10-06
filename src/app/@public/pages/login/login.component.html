@@ -1,6 +1,30 @@
 
-
-
-    <input type="text">
-    <input type="text">
-    <input type="submit" name="hola" placeholder="hola">
+<div class="container-fluid position">
+    <form class="form-signin" [formGroup]="loginForm" (ngSubmit)="crearToken()">
+        <div class="text-center mb-4">
+          <img class="mb-4" src="./assets/images/logo-icon.png" alt="" width="72" height="72">
+          <h1 class="h3 mb-3 font-weight-normal">Floating labels</h1>
+        </div>
+      
+        <div class="form-label-group">
+          <input type="text" id="inputUsuario" class="form-control" placeholder="usuario" formControlName="usuario">
+          <label for="inputEmail">Usuario</label>
+          <div class="text-danger"
+              *ngIf="loginForm.get('usuario')?.hasError('required') && loginForm.get('usuario')?.touched">
+              <span>El usuario es <strong>obligatorio</strong></span>
+            </div>
+        </div>
+      
+        <div class="form-label-group">
+          <input type="password" id="inputPassword" class="form-control" placeholder="Password" formControlName="password">
+          <label for="inputPassword">Password</label>
+          <div class="text-danger"
+              *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
+              <span>El password es <strong>obligatorio</strong></span>
+            </div>
+        </div>
+      
+        <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="loginForm.invalid " >Sign in</button>
+        <p class="mt-5 mb-3 text-muted text-center">&copy; {{fechaActual}}</p>
+      </form>
+</div>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginServiceService } from './login-service.service';
-
+import { ResultLogin } from '../../../interfaces/login-interface';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -8,23 +10,57 @@ import { LoginServiceService } from './login-service.service';
 })
 export class LoginComponent implements OnInit {
 
-  usuario: string = 'jccalderong';
-  password: string = '123456';
-  constructor(private loginService : LoginServiceService) { }
+  fechaActual = new Date().getFullYear();
+  loginForm: FormGroup;
+  constructor(private fb: FormBuilder, private loginService: LoginServiceService) {
+    this.loginForm = fb.group ({
+      usuario:['', Validators.required],
+      password:['', Validators.required],
+    })
+   }
 
   ngOnInit(): void {
+       
+    
   }
-  login(){
+  crearToken(){
     const formData = new FormData();
-    formData.append('usuario', this.usuario);
-    formData.append('password', this.password);
+    console.log(this.loginForm.get('usuario')?.value);
+    
+    formData.append('usuario', this.loginForm.get('usuario')?.value);
+    formData.append('password', this.loginForm.get('password')?.value);
+
     this.loginService.postLogin(formData).subscribe(
-      (data)=>{
-        console.log(data);
+      (data:ResultLogin)=>{
+
+        if (!data.ok) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'warning',
+            title: data.msg,
+            showConfirmButton: false,
+            timer: 1500
+          })
+        } 
+        else{
+          Swal.fire({
+            title: 'Buen trabajo',
+            text: data.msg,
+            icon: 'success',
+            confirmButtonText: 'Yes, delete it!',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              
+            } 
+          })
+        }
+        
       },
-      error=>{
+      (error)=>{
         console.log(error);
+        
       }
     )
+    
   }
 }

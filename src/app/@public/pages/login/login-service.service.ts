@@ -7,12 +7,12 @@ import { Observable } from 'rxjs';
 })
 export class LoginServiceService {
 
-  url = `http://localhost:5200`;
+  url = `https://prueba-backend-mapas.herokuapp.com`;
   constructor(private http: HttpClient) { }
 
 
 
   postLogin(formData: FormData):Observable<any>{
-    return this.http.post(`${this.url}/api/auth`,{usuario:'jccalderong', password:'123456'});
+    return this.http.post(`${this.url}/api/auth`,formData);
   }
 }
